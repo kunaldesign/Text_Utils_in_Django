@@ -23,12 +23,16 @@ def ex1(request):
 def analyze(request):
     #get the text
     djtext = request.GET.get('text', 'default')
+
+    # Check checkbox values
     removepunc = request.GET.get('removepunc', 'off')
-    print(removepunc)
-    print(djtext)
+    fullcaps = request.GET.get('fullcaps','off')
+    newlineremover = request.GET.get('newlineremover','off')
+    extraspaceremover = request.GET.get('extraspaceremover','off')
+    
+    #Check which checkbox is on
     #analyze the text
     if removepunc == "on":
-        #analyzed=djtext
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
         analyzed = ""
         for char in djtext:
@@ -36,7 +40,28 @@ def analyze(request):
                 analyzed = analyzed + char
         params = {'purpose': 'Removed Punctuations', 'analyzed_text': analyzed}
         return render(request, 'analyze.html', params)
-
+    elif(fullcaps=="on"):
+        analyzed = ""
+        for char in djtext:
+            analyzed = analyzed + char.upper()
+        params = {'purpose': 'Chanaged into uppercase', 'analyzed_text': analyzed}
+        return render(request, 'analyze.html', params)
+    elif(newlineremover=="on"):
+        analyzed = ""
+        for char in djtext:
+            if char != "\n":
+                analyzed = analyzed + char
+        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+        return render(request, 'analyze.html', params)
+    elif(extraspaceremover=="on"):
+        analyzed = ""
+        for index, char in enumerate(djtext):
+            if djtext[index] == " " and djtext[index+1]==" ":
+                pass
+            else:
+                analyzed = analyzed + char
+        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+        return render(request, 'analyze.html', params)
     else:
         return HttpResponse("Error")
 
