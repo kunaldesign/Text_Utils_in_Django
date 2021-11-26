@@ -67,9 +67,10 @@ def analyze(request):
             else:
                 analyzed = analyzed + char
         params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
-        djtext = analyzed
+        #djtext = analyzed
         #return render(request, 'analyze.html', params)
-    #else:
+    if(removepunc!="on" and fullcaps!="on" and newlineremover!="on" and extraspaceremover!="on"):
+        return HttpResponse("please select any operation and try Again..!")
         #return HttpResponse("Error")
     return render(request, 'analyze.html', params)
 
