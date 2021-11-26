@@ -22,13 +22,13 @@ def ex1(request):
 
 def analyze(request):
     #get the text
-    djtext = request.GET.get('text', 'default')
+    djtext = request.POST.get('text', 'default')
 
     # Check checkbox values
-    removepunc = request.GET.get('removepunc', 'off')
-    fullcaps = request.GET.get('fullcaps','off')
-    newlineremover = request.GET.get('newlineremover','off')
-    extraspaceremover = request.GET.get('extraspaceremover','off')
+    removepunc = request.POST.get('removepunc', 'off')
+    fullcaps = request.POST.get('fullcaps','off')
+    newlineremover = request.POST.get('newlineremover','off')
+    extraspaceremover = request.POST.get('extraspaceremover','off')
     
     #Check which checkbox is on
     #analyze the text
